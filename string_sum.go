@@ -34,6 +34,14 @@ func StringSum(input string) (output string, err error) {
 		si, _ := strconv.Atoi(value)
 		slice = append(slice, si)
 	}
+	if len(split) > 0 {
+		_, e := strconv.Atoi(split[0])
+		err := fmt.Errorf("bad token. %w", e)
+		if err != nil {
+			fmt.Println(err.Error())
+			return "", err
+		}
+	}
 	sum := 0
 	for i := 0; i < len(slice); i++ {
 		if split[1] == "+" {
@@ -50,8 +58,6 @@ func StringSum(input string) (output string, err error) {
 		}
 	}
 	output = strconv.Itoa(sum)
-	if len(slice) < 3 && len(slice) > 4 {
-		fmt.Errorf("%q", errorNotTwoOperands)
-	}
+
 	return output, nil
 }
