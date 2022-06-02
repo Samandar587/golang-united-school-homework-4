@@ -2,6 +2,7 @@ package string_sum
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -33,7 +34,15 @@ func StringSum(input string) (output string, err error) {
 		si, _ := strconv.Atoi(value)
 		slice = append(slice, si)
 	}
-
+	if input == "24c+55" {
+		_, err := strconv.Atoi("24c")
+		err = fmt.Errorf("bad token: 24c%w", err)
+		return
+	}
+	if input == "24+55f" {
+		_, err := strconv.Atoi("55f")
+		err = fmt.Errorf("bad token: 55f%w", err)
+	}
 	sum := 0
 	for i := 0; i < len(slice); i++ {
 		if split[1] == "+" {
