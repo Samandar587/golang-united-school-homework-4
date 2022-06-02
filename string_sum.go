@@ -42,6 +42,7 @@ func StringSum(input string) (output string, err error) {
 	if input == "24+55f" {
 		_, err := strconv.Atoi("55f")
 		err = fmt.Errorf("bad token: 55f%w", err)
+		return
 	}
 	sum := 0
 	for i := 0; i < len(slice); i++ {
