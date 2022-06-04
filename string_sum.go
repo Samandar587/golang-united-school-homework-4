@@ -31,19 +31,25 @@ func StringSum(input string) (output string, err error) {
 	split := strings.Split(sTrim, "")
 	slice := make([]int, 0)
 	for _, value := range split {
-		si, _ := strconv.Atoi(value)
+		si, err := strconv.Atoi(value)
+		if value != "+" && value != "-" {
+			if err != nil {
+				return "", fmt.Errorf("bad token inserteed: %w", err)
+			}
+		}
+
 		slice = append(slice, si)
 	}
-	if input == "24c+55" {
-		_, err := strconv.Atoi("24c")
-		err = fmt.Errorf("bad token: 24c%w", err)
-		return
+	fmt.Println(split)
+	fmt.Println(slice)
+	lenSlice := len(slice)
+	if sTrim == "" {
+		return "", fmt.Errorf("%w", errorEmptyInput)
 	}
-	if input == "24+55f" {
-		_, err := strconv.Atoi("55f")
-		err = fmt.Errorf("bad token: 55f%w", err)
-		return
+	if lenSlice < 3 || lenSlice > 4 {
+		return "", fmt.Errorf("%w", errorNotTwoOperands)
 	}
+
 	sum := 0
 	for i := 0; i < len(slice); i++ {
 		if split[1] == "+" {
